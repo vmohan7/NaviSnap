@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour {
 
 	public static GameManager Instance;
 
+	private AsyncOperation loadGame;
+
 	/// <summary>
 	/// First function that is called when scene is loading
 	/// </summary>
@@ -40,6 +42,8 @@ public class GameManager : MonoBehaviour {
 	/// </summary>
 	void Start () {
 		NaviConnectionSDK.OnGameStart += OnGameStart;
+		loadGame = Application.LoadLevelAsync (1); //NOT IN ORIGINAL SCRIPT
+		loadGame.allowSceneActivation = false;
 	}
 
 	/// <summary>
@@ -53,6 +57,7 @@ public class GameManager : MonoBehaviour {
 	/// Callback for when game starts; loads the next scene along with the SDK that cannot be destroyed
 	/// </summary>
 	private void OnGameStart(){
-		Application.LoadLevel (1); //load the test scene
+		loadGame.allowSceneActivation = true;
+		//Application.LoadLevel (1); //load the test scene
 	}
 }

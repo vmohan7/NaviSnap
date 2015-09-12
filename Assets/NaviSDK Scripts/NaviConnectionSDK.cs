@@ -90,7 +90,7 @@ public class NaviConnectionSDK : MonoBehaviour {
 	/// This method is mapped to a 5 finger tap. So whenever a user taps with 5 fingers they will be reset
 	/// </summary>
 	public void ResetVR() {
-		UnityEngine.VR.InputTracking.Recenter ();
+		TangoDeltaPoseController.Player.ResetPose (); //NOT IN ORIGINAL SDK Because we use the Tango RESET
 		ResetDevice ();
 		
 		if (OnGameStart != null && initalReset) {
@@ -111,6 +111,7 @@ public class NaviConnectionSDK : MonoBehaviour {
 	/// First function that is called when scene is loading
 	/// </summary>
 	void Awake(){
+		Screen.sleepTimeout = SleepTimeout.NeverSleep; //NOT IN ORIGINAL SDK; we need this to make sure the app does not fall asleep
 		if (Instance == null)
 			Instance = this;
 
@@ -294,7 +295,7 @@ public class NaviConnectionSDK : MonoBehaviour {
 	/// Method that is called when a smart device connects
 	/// </summary>
 	private void DeviceConnected(){
-		UnityEngine.VR.InputTracking.Recenter ();
+		TangoDeltaPoseController.Player.ResetPose ();
 		GestureManager.OnFiveFingerTap += ResetVR; //enable reset at any time
 	}
 }
