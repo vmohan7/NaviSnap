@@ -46,6 +46,9 @@ public class NaviConnectionSDK : MonoBehaviour {
 	
 	public delegate void GameStartAction();
 	public static event GameStartAction OnGameStart;
+
+	public delegate void HMDResetAction();
+	public static event HMDResetAction OnResetHMD;
 	
 	public delegate void PoseAction(Vector3 position, Quaternion rotation);
 	public static event PoseAction OnPoseData;
@@ -90,7 +93,8 @@ public class NaviConnectionSDK : MonoBehaviour {
 	/// This method is mapped to a 5 finger tap. So whenever a user taps with 5 fingers they will be reset
 	/// </summary>
 	public void ResetVR() {
-		TangoDeltaPoseController.Player.ResetPose (); //NOT IN ORIGINAL SDK Because we use the Tango RESET
+		if (OnResetHMD != null)
+			OnResetHMD (); //NOT IN ORIGINAL SDK Because we use the Tango RESET
 		ResetDevice ();
 		
 		if (OnGameStart != null && initalReset) {
@@ -295,7 +299,8 @@ public class NaviConnectionSDK : MonoBehaviour {
 	/// Method that is called when a smart device connects
 	/// </summary>
 	private void DeviceConnected(){
-		TangoDeltaPoseController.Player.ResetPose ();
+		if (OnResetHMD != null)
+			OnResetHMD (); //NOT IN ORIGINAL SDK Because we use the Tango RESET
 		GestureManager.OnFiveFingerTap += ResetVR; //enable reset at any time
 	}
 }

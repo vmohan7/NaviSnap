@@ -4,7 +4,12 @@ using System.Collections;
 public class CopyTablet2 : MonoBehaviour {
 
 	void Start(){
-		transform.parent = TangoDeltaPoseController.Player.gameObject.transform;
+		if (AndroidHelper.IsTangoCorePresent ()) {
+			transform.parent = TangoDeltaPoseController.Player.gameObject.transform;
+		} else {
+			transform.parent = Cardboard.SDK.transform;
+		}
+
 	}
 
 	// Update is called once per frame

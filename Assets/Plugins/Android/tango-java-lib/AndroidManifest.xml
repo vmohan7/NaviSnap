@@ -14,7 +14,9 @@
     <uses-sdk
         android:minSdkVersion="17"
         android:targetSdkVersion="19" />
+        <!--
         <application>
             <uses-library android:name="com.projecttango.libtango_device" android:required="true" />
         </application>
+        -->
 </manifest>
