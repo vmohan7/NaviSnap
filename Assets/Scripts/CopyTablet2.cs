@@ -14,6 +14,6 @@ public class CopyTablet2 : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		transform.rotation = NaviDeviceLocation.DeviceLocation.rotation;
+		transform.rotation = NaviConnectionSDK.Instance.GetPlayerPose(0).transform.rotation;
 	}
 }

@@ -31,13 +31,13 @@ public class TakeVirtualPics : MonoBehaviour {
 		GestureManager.SwipeRight += NextImage;
 		GestureManager.SwipeLeft += PrevImage;
 
-		SwipeDown ();
+		SwipeDown (0);
 	}
 
 	/// <summary>
 	/// On swipe up, we show the images to the user
 	/// </summary>
-	private void SwipeUp() {
+	private void SwipeUp(int playerID) {
 		if (textures.Count > 0) {
 			camera.SetActive (false);
 			SetPicture();
@@ -51,7 +51,7 @@ public class TakeVirtualPics : MonoBehaviour {
 	/// <summary>
 	/// On swipe down, we let the user take pictures with the camera
 	/// </summary>
-	private void SwipeDown() {
+	private void SwipeDown(int playerID) {
 		camera.SetActive (true);
 		imageViewPlane.SetActive (false);
 
@@ -62,7 +62,7 @@ public class TakeVirtualPics : MonoBehaviour {
 	/// <summary>
 	/// Scroll to the previous image the user took
 	/// </summary>
-	private void PrevImage() {
+	private void PrevImage(int playerID) {
 		if (!isCameraMode) {
 			currentImage--;
 			if (currentImage < 0)
@@ -74,7 +74,7 @@ public class TakeVirtualPics : MonoBehaviour {
 	/// <summary>
 	/// Scroll to the next image the user took
 	/// </summary>
-	private void NextImage() {
+	private void NextImage(int playerID) {
 		if (!isCameraMode) {
 			currentImage = (currentImage + 1) % textures.Count;
 			SetPicture();
@@ -92,7 +92,7 @@ public class TakeVirtualPics : MonoBehaviour {
 	/// <summary>
 	/// Start taking the picture
 	/// </summary>
-	private void TakePicture(int fingerID, Vector2 pos){
+	private void TakePicture(int playerID, int fingerID, Vector2 pos){
 		if (isCameraMode)
 			StartCoroutine (ActuallyTakePic ());
 	}
